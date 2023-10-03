@@ -1,35 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      <img src="../public/img.png" alt=""/>
+      <h1>React</h1>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+      <button type="button">Apenda React</button>
+      <button type="button">Referência de</button>
+      <hr/>
+
+      <h2>Crie Interfaces de Usuário de Componentes</h2>
+      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facere excepturi temporibus ut minus eveniet?</p>
+      <hr />
+
+      <h3>Escreva Componentes com código e marcação</h3>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Iusto modi natus consequatur. Animi maxime voluptatum sed quia eligendi sunt minima?</p>
+      <hr />
+
+      <h4>Próximos passos</h4>
+      <ul>
+        <li>Lorem ipsum dolor sit.</li>
+        <li>Lorem ipsum dolor.</li>
+        <li>Lorem ipsum dolor sit.</li>
+        <li>Lorem ipsum.</li>
+        <li>Lorem ipsum dolor sit.</li>
+        <li>Lorem ipsum dolor.</li>
+      </ul>
+    </div>
   )
 }
-
-export default App

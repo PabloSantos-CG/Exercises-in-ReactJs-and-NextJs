@@ -1,0 +1,35 @@
+.dFlex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  max-width: 1015px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  column-gap: 1.2rem;
+  background-color: #D7E1E7;
+  padding: 3rem;
+  border-radius: 15px;
+}
+
+.btnStyle {
+  margin-top: .9rem;
+  border-radius: 7px;
+  background-color: black;
+  color: #ececec;
+  padding: .6rem;
+  box-shadow: 0 2px 5px #00000081;
+  cursor: pointer;
+  &:hover{
+    background-color: transparent;
+    color: #000000;
+  }
+}
+
+.pStyle {
+  margin-top: .8rem;
+  line-height: 1.5;
+  text-align: justify;
+}
