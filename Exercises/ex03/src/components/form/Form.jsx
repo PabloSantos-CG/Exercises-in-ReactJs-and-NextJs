@@ -1,4 +1,5 @@
 import Input from './Input'
+import SendButton from './SendButton'
 import TextArea from './TextArea'
 import style from './style.module.css'
 
@@ -19,6 +20,7 @@ export default function Form() {
           minLength={10}
         />
         <TextArea />
+        <SendButton />
       </form>
 
     </div>

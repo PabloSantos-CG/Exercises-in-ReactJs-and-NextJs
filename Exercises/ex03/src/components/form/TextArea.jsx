@@ -7,8 +7,8 @@ export default function TextArea() {
         className={style.textArea}
         placeholder='Faça uma breve descrição...'
         required
+        maxLength={1000}
       >
-
       </textarea>
     </div>
   )

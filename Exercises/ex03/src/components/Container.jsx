@@ -1,5 +1,5 @@
 import style from './style.module.css'
-import Description from './description/Description'
+import CardDescription from './description/CardDescription'
 import Form from './form/Form'
 
 export default function Container() {
@@ -7,7 +7,7 @@ export default function Container() {
     <div
       className={style.container}
     >
-      <Description />
+      <CardDescription />
       <Form />
     </div>
   )
