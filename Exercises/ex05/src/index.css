@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#container {
+  max-width: 35rem;
+  margin: auto;
+  
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+
+  padding: 1rem;
+  border: 1px solid black;
+}
