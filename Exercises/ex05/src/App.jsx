@@ -9,11 +9,13 @@ export default function App() {
     ev.preventDefault()
 
     const newComment = {
+      id: Math.floor(Math.random()* 9999),
       author,
       comment,
-      //....
+      date: new Date()
     }
 
+    setDatacomments(state => [newComment, ...state])
     setAuthor('')
     setComment('')
   }
@@ -55,7 +57,19 @@ export default function App() {
       <hr />
 
       <section id="comentContainer">
-
+          {dataComments.length > 0
+            ? (
+              dataComments.map((comment) => (
+                <div key={comment.id}>
+                  <h3>{comment.author}</h3>
+                  <span>Em {comment.date.toLocaleString()}</span>
+                  <p>{comment.comment}</p>
+                </div>
+              )))
+              : (
+                <p>Seja o primeiro a comentar...</p>
+              )
+          }
       </section>
     </div>
   )
