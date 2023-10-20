@@ -1,4 +1,12 @@
 import { createBrowserRouter } from "react-router-dom";
+import RootLayout from "./pages/RootLayout";
+import Home from "./pages/Home";
+import ItemsLayout from "./pages/items/Layout";
+import ListItems from "./pages/items/ListItems";
+import CreateItems from "./pages/items/CreateItems";
+import ShowItems from "./pages/items/ShowItem";
+import UpdateItems from "./pages/items/UpdateItem";
+
 
 const router = createBrowserRouter([
   {
