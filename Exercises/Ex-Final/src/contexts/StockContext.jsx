@@ -24,7 +24,7 @@ export function StockContextProvider({ children }) {
       return items
     }
   })
-
+  
   const addItem = (item) => {
     setItems(currentState => {
       const updatedItem = [item, ...currentState]
@@ -32,9 +32,24 @@ export function StockContextProvider({ children }) {
     })
   }
 
+  const deleteItem = (itemID) => {
+    setItems(currentState => {
+      const updatedItem = currentState.filter(item => item.id !== itemID)
+      localStorage.setItem("React-Stock", JSON.stringify(updatedItem))
+
+      return updatedItem
+    })
+  }
+
+  const getItem = (itemID) => {
+    return items.find(item => item.id === +itemID)
+  }
+  
   const stock = {
     items,
-    addItem
+    addItem,
+    deleteItem,
+    getItem
   }
 
   return (

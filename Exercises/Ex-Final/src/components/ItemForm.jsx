@@ -1,8 +1,53 @@
-export default function ItemForm() {
+import { useRef, useState } from "react"
+import StockItems from "../entities/StockItems"
+import useStock from "../hooks/useStock"
 
+export const CATEGORIES = [
+  "Jogos",
+  "Livros",
+  "Brinquedos",
+  "Acessórios"
+]
+
+export default function ItemForm({ itemToUpdate }) {
+  const defaultItem = {
+    name: "",
+    description: "",
+    quantity: 0,
+    price: 0,
+    category: ""
+  }
+
+  const [item, setItem] = useState(itemToUpdate ? itemToUpdate : defaultItem)
+  const { addItem } = useStock()
+  const inputRef = useRef(null)
   
+  const handleChange = (ev) => {
+    setItem(currentState => {
+      return {
+        ...currentState,
+        [ev.target.name]: ev.target.value
+      }
+    })
+  }
+
+  const onSubmit = (ev) => {
+    ev.preventDefault()
+
+    try {
+      const validItem = new StockItems(item)
+      addItem(validItem)
+      setItem(defaultItem)
+      alert("Adicionado com sucesso!")
+      inputRef.current.focus()
+
+    } catch (error) {
+      console.log(error.message)
+    }
+  }
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={onSubmit}>
       <div className="row">
         <div>
           <label htmlFor="name">Nome</label>
