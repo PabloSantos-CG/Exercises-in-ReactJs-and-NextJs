@@ -8,8 +8,10 @@ type Props = {
 export default function Button({ className, content }: Props) {
   return (
     <button 
-      className={`${className} border-2 border-solid p-2
-      bg-zinc-950 text-white
+      className={`
+      ${className || "bg-zinc-950"}
+      border-2 border-solid p-2
+      text-white
       rounded
       text-xs
       hover:bg-transparent hover:text-black

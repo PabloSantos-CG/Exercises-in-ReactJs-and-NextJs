@@ -13,7 +13,7 @@ export default function List({}: Props) {
         nam ab voluptate accusamus quas doloremque, eveniet reiciendis. Sunt,
         nihil!
       </span>
-      <Button content="Remover" className="bg-red-600"/>
+      <Button content="Remover" className="bg-red-300"/>
     </li>
   );
 }
