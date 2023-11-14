@@ -7,14 +7,16 @@ export default function Home() {
       className="
       w-screen h-screen 
       flex flex-col justify-center items-center
+      bg-gray-300
       "
     >
       <div
         className="
-        flex flex-col gap-y-2
-        border-2 border-solid border-black
-        p-2 w-3/4
+        flex flex-col gap-y-4
+        p-4 w-3/4
         rounded
+        bg-gray-100
+        shadow-lg
         "
       >
         <h1 className="text-center text-lg font-medium">ADICIONE UMA TAREFA</h1>

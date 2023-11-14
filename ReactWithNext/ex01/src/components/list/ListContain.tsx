@@ -1,21 +1,24 @@
-import React, { ReactNode } from 'react'
+import React, { ReactNode } from "react";
+import style from "./style.module.css"
 
 type props = {
-  children:ReactNode
-}
+  children: ReactNode;
+};
 
-export default function ListContain({ children }:props) {
+export default function ListContain({ children }: props) {
   return (
     <ul
-      className="
+      className={`
       h-96
-      border-2 border-solid border-black
       rounded
       p-2
       overflow-auto
-      "
+      bg-white
+      shadow-sm
+      ${style.scrollbarMod}
+      `}
     >
       {children}
     </ul>
-  )
+  );
 }

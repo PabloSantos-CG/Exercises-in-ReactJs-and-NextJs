@@ -43,9 +43,9 @@ export default function Form({}: Props) {
 
   return (
     <>
-      <form>
+      <form className="flex gap-x-2">
         <input
-          className="border-2 border-solid"
+          className="flex-1 border-2 border-solid p-2 rounded"
           type="text"
           placeholder="Ler 10 páginas..."
           required
@@ -67,6 +67,11 @@ export default function Form({}: Props) {
           />
         ))}
       </ListContain>
+
+      <div className="flex justify-between">
+        <p>Existem {items.length} tarefas.</p>
+        <Button content="Remover Tudo" className="bg-red-800"/>
+      </div>
     </>
   );
 }
