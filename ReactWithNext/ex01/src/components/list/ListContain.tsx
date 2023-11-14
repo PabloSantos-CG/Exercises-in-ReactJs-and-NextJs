@@ -1,10 +1,10 @@
-import React from 'react'
-import List from './List'
+import React, { ReactNode } from 'react'
 
-type Props = {}
+type props = {
+  children:ReactNode
+}
 
-export default function ListContain({}: Props) {
-
+export default function ListContain({ children }:props) {
   return (
     <ul
       className="
@@ -15,18 +15,7 @@ export default function ListContain({}: Props) {
       overflow-auto
       "
     >
-      <List />
-      <List />
-      <List />
-      <List />
-      <List />
-      <List />
-      <List />
-      <List />
-      <List />
-      <List />
-      <List />
-      <List />
+      {children}
     </ul>
   )
 }

@@ -3,9 +3,10 @@ import React from 'react'
 type Props = {
   className?:string
   content:string
+  event?: () => void
 }
 
-export default function Button({ className, content }: Props) {
+export default function Button({ className, content, event }: Props) {
   return (
     <button 
       className={`
@@ -17,6 +18,7 @@ export default function Button({ className, content }: Props) {
       hover:bg-transparent hover:text-black
       duration-500
       `}
+      onClick={event}
     >
       {content}
     </button>

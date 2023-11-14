@@ -1,5 +1,5 @@
+"use client"
 import Form from "@/components/form/Form";
-import ListContain from "@/components/list/ListContain";
 
 export default function Home() {
   return (
@@ -19,7 +19,6 @@ export default function Home() {
       >
         <h1 className="text-center text-lg font-medium">ADICIONE UMA TAREFA</h1>
         <Form />
-        <ListContain />
       </div>
     </main>
   );
