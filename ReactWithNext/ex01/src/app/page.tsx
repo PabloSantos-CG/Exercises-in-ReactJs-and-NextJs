@@ -13,13 +13,13 @@ export default function Home() {
       <div
         className="
         flex flex-col gap-y-4
-        p-4 w-3/4
+        p-4 w-3/4 max-w-4xl
         rounded
         bg-gray-100
         shadow-lg
         "
       >
-        <h1 className="text-center text-lg font-medium">ADICIONE UMA TAREFA</h1>
+        <h1 className="text-center text-2xl text font-bold tracking-wide">Gerenciador de Tarefas</h1>
         <Form />
       </div>
     </main>

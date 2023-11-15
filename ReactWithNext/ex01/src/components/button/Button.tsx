@@ -17,7 +17,9 @@ export default function Button({ className, content, event }: Props) {
       text-xs
       hover:bg-transparent hover:text-black
       duration-500
+      shadow-md
       `}
+      type='button'
       onClick={event}
     >
       {content}

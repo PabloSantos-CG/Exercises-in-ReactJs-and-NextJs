@@ -14,13 +14,14 @@ type items = {
 export default function Form({}: Props) {
   const [items, setItem] = useState<items[]>([]);
   const [input, setInput] = useState("");
+  const [borderColorBtn, setBorderColorBtn] = useState("");
 
-  const handleClick = () => {
-    if (input !== "") {
+  const handleAddTask = () => {
+    if (input.trim() !== "") {
       const random = Math.floor(Math.random() * 99999);
       setItem([...items, { id: random, spanContent: input, checked: false }]);
-      setInput("");
     }
+    setInput("");
   };
 
   const removeItem = (id: number) => {
@@ -38,21 +39,32 @@ export default function Form({}: Props) {
         setItem(newItems);
       }
     }
-    console.log("Saiu da função")
   };
+
+  const clearList = () => {
+    if(items.length > 0) {
+      const confirmation = confirm("Excluir todas as tarefas?")
+      if(confirmation) setItem([])
+    } else {
+      setBorderColorBtn("border-red-500")
+      setTimeout(()=> {
+        setBorderColorBtn("")
+      },800)
+    }
+  }
 
   return (
     <>
-      <form className="flex gap-x-2">
+      <form className="flex gap-x-2 max-sm:flex-wrap">
         <input
           className="flex-1 border-2 border-solid p-2 rounded"
           type="text"
-          placeholder="Ler 10 páginas..."
+          placeholder="Exemplo: Ler 10 páginas..."
           required
           value={input}
           onChange={(ev) => setInput(ev.target.value)}
         />
-        <Button content="ADICIONAR" event={handleClick} />
+        <Button content="ADICIONAR" event={handleAddTask} />
       </form>
 
       <ListContain>
@@ -69,8 +81,8 @@ export default function Form({}: Props) {
       </ListContain>
 
       <div className="flex justify-between">
-        <p>Existem {items.length} tarefas.</p>
-        <Button content="Remover Tudo" className="bg-red-800"/>
+        <p>Tarefas: {items.length}</p>
+        <Button content="Limpar lista" className={`bg-gray-500 ${borderColorBtn}`} event={clearList}/>
       </div>
     </>
   );
