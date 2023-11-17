@@ -1,29 +1,47 @@
+import { Item } from "../../types/Item";
+
 type Add = {
   type: "add";
-  action: {
-
-  }
+  payload: {
+    text: string;
+  };
 };
 
-type Read = {
-  type: "read";
-  action: {
-
-  }
+type ToggleCheck = {
+  type: "toggle";
+  payload: {
+    id: number;
+  };
 };
 
-type Remove = {
+type RemoveTask = {
   type: "remove";
-  action: {
-
-  }
+  payload: {
+    id: number;
+  };
 };
 
-type ListActions = 
+type RemoveAll = {
+  type: "removeAll";
+  payload: {};
+};
 
+type ListActions = Add | ToggleCheck | RemoveTask | RemoveAll;
 
-export const listReducer = (list: Item[], action: ListActions) => {
-  return (
-
-  );
-}
+export const listReducer = (list: Item[], { type, payload }: ListActions): Item[] => {
+  switch (type) {
+    case "add":
+      if (payload.text.trim() !== "") {
+         
+      }
+      
+      
+    // case "toggle":
+      
+    // case "remove":
+      
+    // case "removeAll":
+    default:
+      return list 
+  }
+};
