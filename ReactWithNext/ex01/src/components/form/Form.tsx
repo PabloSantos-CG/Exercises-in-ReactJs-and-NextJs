@@ -2,54 +2,38 @@ import React, { useReducer, useState } from "react";
 import Button from "../button/Button";
 import ListContain from "../list/ListContain";
 import List from "../list/List";
-import { Item } from "../../types/Item";
 import { listReducer } from "../reducers/listReducer";
 
 export default function Form() {
-  const [items, setItem] = useState<Item[]>([]);
-  
-  const [list, dispatch] = useReducer(listReducer, [])
-  
+  const [list, dispatch] = useReducer(listReducer, []);
   const [input, setInput] = useState("");
   const [borderColorBtn, setBorderColorBtn] = useState("");
 
-  //HandleAddTask deve ser mudada para um argumentos
-  //texto(que vai vim do input)
-
   const handleAddTask = () => {
-    if (input.trim() !== "") {
-      const random = Math.floor(Math.random() * 99999);
-      setItem([...items, { id: random, spanContent: input, checked: false }]);
-    }
+    if (input.trim() === "") return false;
+
+    dispatch({ type: "add", payload: { text: input } });
     setInput("");
   };
 
   const handleRemoveTask = (id: number) => {
-    setItem(items.filter((item) => item.id !== id));
-  };
-
-  const toggleCheck = (id: number) => {
-    const newItems = [...items];
-
-    for (let i in newItems) {
-      if (newItems[i].id === id) {
-        console.log(newItems[i]);
-        newItems[i].checked = !newItems[i].checked;
-        setItem(newItems);
-      }
-    }
+    dispatch({ type: "remove", payload: { id } });
   };
 
   const clearList = () => {
-    if (items.length > 0) {
-      const confirmation = confirm("Excluir todas as tarefas?");
-      if (confirmation) setItem([]);
+    if (list.length > 0) {
+      dispatch({ type: "removeAll", payload: {} });
     } else {
       setBorderColorBtn("border-red-500");
       setTimeout(() => {
         setBorderColorBtn("");
       }, 800);
     }
+  };
+
+  const toggleCheck = (id: number) => {
+    dispatch({ type: "toggle", payload: { id } });
+    console.log(list)
   };
 
   return (
@@ -67,11 +51,11 @@ export default function Form() {
       </form>
 
       <ListContain>
-        {(items.length > 0 &&
-          items.map((item) => (
+        {(list.length > 0 &&
+          list.map((item) => (
             <List
               key={item.id}
-              itemChecked={item.checked}
+              checked={item.checked}
               classNameCheckbox={item.checked ? "line-through" : ""}
               spanContent={item.spanContent}
               removeItem={() => handleRemoveTask(item.id)}
@@ -85,7 +69,7 @@ export default function Form() {
       </ListContain>
 
       <div className="flex justify-between">
-        <p>Tarefas: {items.length}</p>
+        <p>Tarefas: {list.length}</p>
         <Button
           content="Limpar lista"
           className={`bg-gray-500 ${borderColorBtn}`}

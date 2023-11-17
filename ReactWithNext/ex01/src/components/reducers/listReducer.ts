@@ -7,13 +7,6 @@ type Add = {
   };
 };
 
-type ToggleCheck = {
-  type: "toggle";
-  payload: {
-    id: number;
-  };
-};
-
 type RemoveTask = {
   type: "remove";
   payload: {
@@ -26,22 +19,50 @@ type RemoveAll = {
   payload: {};
 };
 
-type ListActions = Add | ToggleCheck | RemoveTask | RemoveAll;
+type ToggleCheck = {
+  type: "toggle";
+  payload: {
+    id: number;
+  };
+};
 
-export const listReducer = (list: Item[], { type, payload }: ListActions): Item[] => {
+type ListActions = Add | RemoveTask | RemoveAll | ToggleCheck;
+
+export const listReducer = (
+  list: Item[],
+  { type, payload }: ListActions
+): Item[] => {
   switch (type) {
     case "add":
-      if (payload.text.trim() !== "") {
-         
+      return [
+        ...list,
+        {
+          id: Math.floor(Math.random() * 99999),
+          spanContent: payload.text,
+          checked: false,
+        },
+      ];
+
+    case "remove":
+      return list.filter((item) => item.id !== payload.id);
+      
+    case "toggle":
+      //Duplicando li
+      const newItems = [...list];
+      for (let i in newItems) {
+        if (newItems[i].id === payload.id) {
+          console.log(newItems[i]);
+          newItems[i].checked = !newItems[i].checked;
+          list = [...list, { ...newItems[i] }];
+        }
       }
+      return list
       
-      
-    // case "toggle":
-      
-    // case "remove":
-      
-    // case "removeAll":
+    case "removeAll":
+      const confirmation = confirm("Excluir todas as tarefas?");
+      confirmation? list = [] : list;
+
     default:
-      return list 
+      return list;
   }
 };

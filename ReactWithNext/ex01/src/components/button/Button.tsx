@@ -19,7 +19,7 @@ export default function Button({ className, content, event }: Props) {
       duration-500
       shadow-md
       `}
-      type='button'
+      
       onClick={event}
     >
       {content}

@@ -2,7 +2,7 @@ import React from "react";
 import Button from "../button/Button";
 
 type Props = {
-  itemChecked: boolean;
+  checked: boolean;
   spanContent: string;
   classNameCheckbox:string;
   removeItem: () => void;
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default function List({
-  itemChecked,
+  checked,
   spanContent,
   classNameCheckbox,
   removeItem,
@@ -20,8 +20,8 @@ export default function List({
     <li className="flex items-center justify-between gap-x-2 mb-2 hover:bg-gray-50" >
       <input
         type="checkbox"
-        checked={itemChecked}
-        onClick={toggleItem}
+        checked={checked}
+        onChange={toggleItem}
       />
       <span className={`truncate ${classNameCheckbox}`} >{spanContent}</span>
       <Button
