@@ -22,6 +22,7 @@ export default function List({
         type="checkbox"
         checked={checked}
         onChange={toggleItem}
+        className="cursor-pointer"
       />
       <span className={`truncate ${classNameCheckbox}`} >{spanContent}</span>
       <Button
