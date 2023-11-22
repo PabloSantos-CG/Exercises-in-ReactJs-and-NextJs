@@ -1,22 +1,13 @@
-import React, { ReactNode, createContext, useState } from "react";
+import React, { ReactNode, createContext } from "react";
 
 type Props = {
   children: ReactNode;
 };
 
-type LogUserType = {
-  inputName: string;
-  setInputName: (s: string) => void;
-};
+type LogUserType = {};
 
 export const LogContext = createContext<LogUserType | null>(null);
 
 export function LogUserProvider({ children }: Props) {
-  const [inputName, setInputName] = useState("");
-  
-  return (
-    <LogContext.Provider value={{ inputName, setInputName }}>
-      {children}
-    </LogContext.Provider>
-  );
+  return <LogContext.Provider value={{}}>{children}</LogContext.Provider>;
 }
