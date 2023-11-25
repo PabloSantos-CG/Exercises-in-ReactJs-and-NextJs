@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { getPosts, getUser, getUsers } from "./api";
+import { getPosts, getUser, getUsers } from "../utils/api";
 
-export const useUsers = () =>
+export const useUsers = (enabled?: boolean) =>
   useQuery({
     queryKey: ["users"],
     queryFn: getUsers,
-    staleTime: Infinity
+    enabled,
   });
 
 export const useUser = (id: number) =>
