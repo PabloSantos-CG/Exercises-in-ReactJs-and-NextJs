@@ -1,11 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getPosts, getUser, getUsers } from "../utils/api";
 
-export const useUsers = (enabled?: boolean) =>
+export const useUsers = () =>
   useQuery({
     queryKey: ["users"],
     queryFn: getUsers,
-    enabled,
   });
 
 export const useUser = (id: number) =>
@@ -14,8 +13,9 @@ export const useUser = (id: number) =>
     queryFn: () => getUser(id),
   });
 
-export const usePosts = () =>
+export const usePosts = (limit:number, start:number) =>
   useQuery({
-    queryKey: ["posts"],
-    queryFn: getPosts,
+    queryKey: ["posts", { limit, start }],
+    queryFn:() => getPosts(limit, start),
+    placeholderData: keepPreviousData
   });
