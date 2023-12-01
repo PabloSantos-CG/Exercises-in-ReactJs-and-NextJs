@@ -1,20 +1,17 @@
 "use client";
+import InputForm from "@/components/InputForm";
+import { SignUpForm } from "@/types/SignUpForm";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-type Inputs = {
-  user: string;
-  email: string;
-  password: number;
-};
 
 export default function Home() {
   const {
     handleSubmit,
     register,
+    control,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<SignUpForm>();
 
-  const handleFormSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const handleFormSubmit: SubmitHandler<SignUpForm> = (data) => console.log(data);
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
@@ -23,14 +20,13 @@ export default function Home() {
         className="flex flex-col m-2 gap-y-2 text-black w-72"
         onSubmit={handleSubmit(handleFormSubmit)}
       >
-        <input
-          type="text"
-          placeholder="Nick de usuário"
-          {...register("user", { required: true })}
+        
+        <InputForm 
+         control={control} 
+         name="user"
+         rules={{ required: true, minLength: 4 }}
         />
-        {errors.user && (
-          <p className="text-red-500 text-xs">*Campo obrigatório</p>
-        )}
+        
         <input
           type="email"
           placeholder="Exemplo@gmail.com"
@@ -47,6 +43,11 @@ export default function Home() {
         {errors.password?.type === "minLength" && (
           <p className="text-red-500 text-xs">
             *A senha deve ter no mínimo 8 caracteres
+          </p>
+        )}
+        {errors.password?.type === "required" && (
+          <p className="text-red-500 text-xs">
+            *Campo obrigatório
           </p>
         )}
         <button
