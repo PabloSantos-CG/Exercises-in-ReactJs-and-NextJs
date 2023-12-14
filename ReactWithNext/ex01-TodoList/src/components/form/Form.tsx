@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useReducer, useState } from "react";
 import Button from "../button/Button";
 import ListContain from "../list/ListContain";
