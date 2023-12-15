@@ -1,3 +1,4 @@
+"use client";
 import { Item } from "../../types/Item";
 
 type Add = {
@@ -55,7 +56,7 @@ export const listReducer = (
       });
 
     case "removeAll":
-      return []
+      return [];
 
     default:
       return list;

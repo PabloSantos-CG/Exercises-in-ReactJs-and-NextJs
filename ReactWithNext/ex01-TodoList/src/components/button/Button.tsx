@@ -1,14 +1,15 @@
-import React from 'react'
+"use client";
+import React from "react";
 
 type Props = {
-  className?:string
-  content:string
-  event?: () => void
-}
+  className?: string;
+  content: string;
+  event?: () => void;
+};
 
 export default function Button({ className, content, event }: Props) {
   return (
-    <button 
+    <button
       className={`
       ${className || "bg-zinc-950"}
       border-2 border-solid p-2
@@ -19,10 +20,9 @@ export default function Button({ className, content, event }: Props) {
       duration-500
       shadow-md
       `}
-      
       onClick={event}
     >
       {content}
     </button>
-  )
+  );
 }

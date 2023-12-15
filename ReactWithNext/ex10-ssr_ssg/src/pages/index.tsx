@@ -1,6 +1,7 @@
 import { ReactNode, useEffect, useState } from "react";
 import { Data } from "./api/hello";
 import { GetServerSideProps } from "next";
+import Link from "next/link";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const serverSideRedering: Data = await fetch(
@@ -30,6 +31,14 @@ export default function Home(props: {
   return (
     <div className="">
       <h1 className="text-center">Testando renderizações</h1>
+
+      <Link
+        href={"/products"}
+        className="p-2 m-2 bg-blue-300 rounded-md hover:bg-transparent duration-500"
+      >
+        Acessar products
+      </Link>
+
       <div className="flex justify-center m-6 gap-x-40">
         <div>
           <p className="font-bold">Gerado no CLIENT:</p>

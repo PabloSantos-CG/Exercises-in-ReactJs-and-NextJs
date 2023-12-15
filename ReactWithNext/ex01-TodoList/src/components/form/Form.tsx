@@ -6,23 +6,26 @@ import ListContain from "../list/ListContain";
 import List from "../list/List";
 import { listReducer } from "../reducers/listReducer";
 
+
+
 export default function Form() {
   const [list, dispatch] = useReducer(
     listReducer,
-    JSON.parse(localStorage.getItem("dbTask") || "[]")
+    
+    typeof window !== "undefined" ? JSON.parse(localStorage.getItem('dbTask') || "[]") : []
   );
 
   const [input, setInput] = useState("");
   const [borderColorBtn, setBorderColorBtn] = useState("");
-  
+
   const contCheckedList = () => {
     let cont = 0;
 
-    list.forEach(value => {
-      if(value.checked === true) cont++
+    list.forEach((value) => {
+      if (value.checked === true) cont++;
     });
     return cont;
-  }
+  };
 
   const handleAddTask = () => {
     if (input.trim() === "") return false;
@@ -38,8 +41,7 @@ export default function Form() {
   const clearList = () => {
     if (list.length > 0) {
       const confirmation = confirm("Excluir todas as tarefas?");
-      if(confirmation) dispatch({ type: "removeAll", payload: {} });
-      
+      if (confirmation) dispatch({ type: "removeAll", payload: {} });
     } else {
       setBorderColorBtn("border-red-500");
       setTimeout(() => {
@@ -78,7 +80,9 @@ export default function Form() {
             <List
               key={item.id}
               checked={item.checked}
-              classNameCheckbox={item.checked ? "line-through text-green-500 italic" : ""}
+              classNameCheckbox={
+                item.checked ? "line-through text-green-500 italic" : ""
+              }
               spanContent={item.spanContent}
               removeItem={() => handleRemoveTask(item.id)}
               toggleItem={() => toggleCheck(item.id)}
