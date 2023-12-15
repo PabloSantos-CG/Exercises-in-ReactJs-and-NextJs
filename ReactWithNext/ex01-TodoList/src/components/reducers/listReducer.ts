@@ -1,4 +1,3 @@
-"use client";
 import { Item } from "../../types/Item";
 
 type Add = {

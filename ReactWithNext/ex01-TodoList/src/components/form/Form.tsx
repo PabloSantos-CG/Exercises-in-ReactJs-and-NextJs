@@ -6,13 +6,13 @@ import ListContain from "../list/ListContain";
 import List from "../list/List";
 import { listReducer } from "../reducers/listReducer";
 
-
-
 export default function Form() {
   const [list, dispatch] = useReducer(
     listReducer,
-    
-    typeof window !== "undefined" ? JSON.parse(localStorage.getItem('dbTask') || "[]") : []
+
+    typeof window !== "undefined"
+      ? JSON.parse(localStorage.getItem("dbTask") || "[]")
+      : []
   );
 
   const [input, setInput] = useState("");
@@ -75,7 +75,7 @@ export default function Form() {
       </form>
 
       <ListContain>
-        {(list.length > 0 &&
+        {list.length > 0 ? (
           list.map((item) => (
             <List
               key={item.id}
@@ -87,7 +87,8 @@ export default function Form() {
               removeItem={() => handleRemoveTask(item.id)}
               toggleItem={() => toggleCheck(item.id)}
             />
-          ))) || (
+          ))
+        ) : (
           <span className="text-xs text-gray-400">
             Experimente adicionar uma nova tarefa...
           </span>
