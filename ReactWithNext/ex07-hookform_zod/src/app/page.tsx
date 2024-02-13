@@ -22,42 +22,28 @@ export default function Home() {
       <form onSubmit={handleSubmit(handleSignUpForm)}>
         <div>
           <input
-            {...register("name")}
+            {...register("email")}
             className="m-3 text-black"
-            placeholder="Nome"
+            placeholder="Informe seu e-mail"
           />
 
-          {errors.name && (
+          {errors.email && (
             <p className="text-red-500 text-xs">
-              {errors.name.message as string}
+              {errors.email.message as string}
             </p>
           )}
         </div>
 
         <div>
           <input
-            {...register("lastName")}
+            {...register("password")}
             className="m-3 text-black"
-            placeholder="Sobrenome"
+            placeholder="Informe sua senha"
           />
 
-          {errors.lastName && (
+          {errors.password && (
             <p className="text-red-500 text-xs">
-              {errors.lastName.message as string}
-            </p>
-          )}
-        </div>
-
-        <div>
-          <input
-            {...register("age", { valueAsNumber: true })}
-            className="m-3 text-black"
-            placeholder="Idade"
-          />
-
-          {errors.age && (
-            <p className="text-red-500 text-xs">
-              {errors.age.message as string}
+              {errors.password.message as string}
             </p>
           )}
         </div>

@@ -1,14 +1,12 @@
 import { z } from "zod";
 
 export const SignUpFormSchema = z.object({
-  name: z
+  email: z
     .string()
-    .min(3, "*Tamanho mínimo é 3")
-    .max(20, "*Tamanho máximo é 20"),
-  lastName: z
-    .string()
-    .optional(),
-  age: z
-    .number({ invalid_type_error: "*Apenas números" })
-    .min(18, "*Apenas maiores de idade"),
+    .email("*E-mail inválido")
+    .regex(
+      /^[a-zA-Z0-9._%+-]{3,}@([a-zA-Z0-9-]+\.)+[a-zA-Z]{3,}$/,
+      "*Formato errado"
+    ),
+  password: z.string().min(8, "*Sua senha deve conter no mínimo 8 caracteres"),
 });
