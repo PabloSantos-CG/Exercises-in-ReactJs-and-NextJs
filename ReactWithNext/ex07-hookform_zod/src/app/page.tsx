@@ -1,8 +1,10 @@
 "use client";
 import { SignUpFormSchema } from "@/schemas/SignUpForm";
 import { SignUpFormTypeSchema } from "@/types/SignUpFormType";
+import { api } from "@/utils/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { cookies } from "next/headers";
 
 export default function Home() {
   const {
@@ -13,8 +15,16 @@ export default function Home() {
     resolver: zodResolver(SignUpFormSchema),
   });
 
-  const handleSignUpForm: SubmitHandler<SignUpFormTypeSchema> = (data) => {
-    console.log(data);
+  const handleSignUpForm: SubmitHandler<SignUpFormTypeSchema> = async (
+    data
+  ) => {
+    try {
+      const result = await api.post("/register", data);
+      const { id, token } = result.data;
+      console.log(`Aqui o id: ${id} \nAqui o token: ${token}`);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -39,6 +49,7 @@ export default function Home() {
             {...register("password")}
             className="m-3 text-black"
             placeholder="Informe sua senha"
+            autoComplete="off"
           />
 
           {errors.password && (
