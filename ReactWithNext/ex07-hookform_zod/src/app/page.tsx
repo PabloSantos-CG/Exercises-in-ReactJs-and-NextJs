@@ -4,7 +4,6 @@ import { SignUpFormTypeSchema } from "@/types/SignUpFormType";
 import { api } from "@/utils/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { cookies } from "next/headers";
 
 export default function Home() {
   const {
