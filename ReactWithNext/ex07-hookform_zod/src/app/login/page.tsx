@@ -1,17 +1,18 @@
 "use client";
+
 import { SignUpFormSchema } from "@/schemas/SignUpForm";
 import { SignUpFormTypeSchema } from "@/types/SignUpFormType";
 import { api } from "@/utils/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Teko } from "next/font/google";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { setCookie } from "nookies";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { setCookie } from "nookies";
+import { useRouter } from "next/navigation";
 
 const teko = Teko({ subsets: ["latin"] });
 
-export default function Register() {
+export default function Home() {
   const {
     register,
     handleSubmit,
@@ -21,17 +22,21 @@ export default function Register() {
     resolver: zodResolver(SignUpFormSchema),
   });
   const router = useRouter();
-
+  
   const handleSignUpForm: SubmitHandler<SignUpFormTypeSchema> = async (
     data
-  ) => {
-    try {
-      const result = await api.post("/register", data);
-      const { id, token } = result.data;
+    ) => {
 
-      setCookie(undefined, "nextAuthToken", token, {
-        maxAge: 60 * 60 * 2, // 2 hours
-      });
+      try {
+      const result = await api.post("/login", data);
+
+      if (result.data) {
+        const { status, token } = result.data;
+        
+        setCookie(undefined, "nextAuthToken", token, {
+          maxAge: 60 * 60 * 2, // 2 hours
+        });
+      }
 
       reset();
       router.push("/");
@@ -53,7 +58,7 @@ export default function Register() {
         <h1
           className={`${teko.className} text-3xl text-[#13678A] tracking-normal font-bold my-2`}
         >
-          Crie Uma Conta
+          Acesse Sua Conta
         </h1>
 
         <div>
@@ -86,8 +91,11 @@ export default function Register() {
         </div>
 
         <p className=" text-indigo-600 text-sm my-1">
-          Já possui uma conta?{" "}
-          <Link href="/login" className="hover: cursor-pointer hover:underline ">
+          Ainda não possui uma conta?{" "}
+          <Link
+            href="/register"
+            className="hover: cursor-pointer hover:underline "
+          >
             Clique aqui
           </Link>
         </p>
@@ -96,7 +104,7 @@ export default function Register() {
           type="submit"
           className="flex w-full justify-center rounded-md  bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
         >
-          Registrar
+          Entrar
         </button>
       </form>
     </main>

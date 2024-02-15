@@ -1,98 +1,85 @@
 "use client";
-import { SignUpFormSchema } from "@/schemas/SignUpForm";
-import { SignUpFormTypeSchema } from "@/types/SignUpFormType";
-import { api } from "@/utils/api";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Teko } from "next/font/google";
-import Link from "next/link";
-import { SubmitHandler, useForm } from "react-hook-form";
 
-const teko = Teko({ subsets: ["latin"] });
+import { User } from "@/types/User";
+import { useEffect, useState } from "react";
+import { parseCookies } from "nookies";
+import { api } from "@/utils/api";
+import Link from "next/link";
 
 export default function Home() {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors },
-  } = useForm<SignUpFormTypeSchema>({
-    resolver: zodResolver(SignUpFormSchema),
-  });
+  const [data, setData] = useState<User[]>([]);
+  const [logged, setLogged] = useState<boolean>(false);
 
-  const handleSignUpForm: SubmitHandler<SignUpFormTypeSchema> = async (
-    data
-  ) => {
-    try {
-      const result = await api.post("/register", data);
-      const { id, token } = result.data;
-      console.log(`Aqui o id: ${id} \nAqui o token: ${token}`);
-      reset();
-    } catch (error) {
-      console.log(error);
-    }
+  const getUsers = async (token: string) => {
+    const { data } = await api.get("/list", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    console.log("Feita request", data);
+    setData(data);
   };
+
+  useEffect(() => {
+    const { nextAuthToken: token } = parseCookies();
+    if (token) {
+      getUsers(token);
+      setLogged(true);
+    }
+  }, []);
 
   return (
     <main className="h-full flex items-center justify-center bg-[#012030]">
-      <form
-        className="
-          max-sm:w-full w-3/4 max-w-xl p-10
-          flex flex-col gap-y-2
-          bg-slate-200 rounded-md shadow-lg shadow-[#45c4b162]
-        "
-        onSubmit={handleSubmit(handleSignUpForm)}
-      >
-        <h1
-          className={`${teko.className} text-3xl text-[#13678A] tracking-normal font-bold my-2`}
-        >
-          Acesse Sua Conta
-        </h1>
+      {!logged && (
+        <div className="text-white">
+          <p>
+            Você precisa fazer o login ou registro para ter acesso aos usuários
+            !
+          </p>
+          <div className="flex justify-around mt-5">
+            <Link
+              href="/login"
+              className="
+                bg-black border border-black hover:bg-transparent hover:border-white
+                duration-300 
+                py-2 px-8 rounded
+              "
+            >
+              Entrar
+            </Link>
 
-        <div>
-          <input
-            {...register("email")}
-            className="block w-full rounded-md border-0 mb-2 p-2 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-            placeholder="Informe seu e-mail"
-          />
-
-          {errors.email && (
-            <p className="text-red-500 text-xs">
-              {errors.email.message as string}
-            </p>
-          )}
+            <Link
+              href="/register"
+              className="
+                bg-black border border-black hover:bg-transparent hover:border-white
+                duration-300 
+                py-2 px-6 rounded
+              "
+            >
+              Registrar
+            </Link>
+          </div>
         </div>
-
-        <div>
-          <input
-            {...register("password")}
-            className="block w-full rounded-md border-0 mb-2 p-2 text-gray-700 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 sm:text-sm sm:leading-6"
-            placeholder="Informe sua senha"
-            autoComplete="off"
-          />
-
-          {errors.password && (
-            <p className="text-red-500 text-xs">
-              {errors.password.message as string}
-            </p>
-          )}
-        </div>
-        <p className=" text-indigo-600 text-sm my-1">
-          Ainda não possui uma conta?{" "}
-          <Link
-            href="/register"
-            className="hover: cursor-pointer hover:underline "
-          >
-            Clique aqui
-          </Link>
-        </p>
-
-        <button
-          type="submit"
-          className="flex w-full justify-center rounded-md  bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+      )}
+      {logged && (
+        <div
+          className="
+            max-sm:w-full w-3/4 max-w-3xl  min-h-[520px]
+            bg-white rounded-sm 
+          "
         >
-          Entrar
-        </button>
-      </form>
+          <div className="flex items-center justify-center h-[70px] border bg-gray-50">
+            <h1 className="text-2xl font-semibold">Usuários Existentes</h1>
+          </div>
+
+          <div className="h-[450px]">
+            <ul className="w-full h-full p-3 overflow-auto">
+              {data.length === 0 && <li>Não existem usuários...</li>}
+              {data &&
+                data.length > 0 &&
+                data.map((user, index) => <li key={index}>{user.email}</li>)}
+            </ul>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
